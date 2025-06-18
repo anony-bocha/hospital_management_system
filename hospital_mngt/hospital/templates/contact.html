@@ -1,5 +1,33 @@
 {% include 'base.html '%}
 {% include 'navigation.html' %}
+<style>
+    .mydivstyle:hover {
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+        transform: translatey(-20px);
+    }
+</style>
 {% block content%}
-<h1 class="text-center">contact us</h1>
+<div class="container" style="margin-top: 50px;">
+    <h1 class="text-center">contact us</h1>
+
+    <div class="row mt-5 text-center">
+        <div class="col-lg-3 col-sm-6 mydivstyle">
+            <h4><i class="fas fa-phone-square"> Contact</i></h4>
+            <p class="text-danger font-weight-bold mt-3"><a href="tel:+251985579244">+251985579244</a></p>
+        </div>
+        <div class="col-lg-3 col-sm-6 mydivstyle">
+            <h4><i class="fa fa-envelope"></i> Send-email</h4>
+            <p class="text-danger font-weight-bold mt-3"><a href="mailto:semateyonatan@gmail.com">semateyonatan@gmail.com</a></p>
+        </div>
+        <div class="col-lg-3 col-sm-6 mydivstyle">
+           <h4><i class="fa fa-address-card" aria-hidden="true"> Office Address</i></h4>
+           <p class="text-danger font-weight-bold mt-3"><a href="http://maps.google.com/maps?q=2P7C+338 Armed Forces Hospital, Addis Ababa">xorhailoch, adisabeba</a></p>
+        </div>
+        <div class="col-lg-3 col-sm-6 mydivstyle">
+            <h4><i class="fa fa-address-card" aria-hidden="true"> Office Time</i></h4>
+            <p class="text-danger font-weight-bold mt-3">10AM to 5PM</p>
+          </div>
+    
+    </div>
+</div>
 {% endblock content %}
