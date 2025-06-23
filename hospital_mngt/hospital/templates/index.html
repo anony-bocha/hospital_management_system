@@ -1,0 +1,11 @@
+<div class="container">
+    <h2> class="texte-center">Admin Login</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label>Admin Name</label>
+        <input type="text" class="form-control" name="uname">
+        <label>Password</label>
+        <input type="text" class="form-control" name="pwd">
+        <input type="submit" value="login" class="form-control btn btn-primary">
+    </form>
+</div>
