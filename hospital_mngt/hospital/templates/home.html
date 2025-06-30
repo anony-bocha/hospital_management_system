@@ -1,6 +1,62 @@
 {% include 'base.html '%}
+{% load static %}
 {% include 'navigation.html' %}
+<style>
+    body {
+        background-color: #cccccc;
+    }
+</style>
 {% block content%}
-<h1 class="text-center">welcome to hospital management system</h1>
+<div id="carousel-slider" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carousel-slider" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-slider" data-slide-to="1"></li>
+        <li data-target="#carousel-slider" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="images/slider_1_1.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption text-white">
+                <h2>postoperative Care</h2>
+                <p>post positive care is ,kshglkjgldkjfgldkjgldkjg.dgc,nbkc
+                    jhfkhgkdnglkndfg
+                    ksdfk,sjhlsknflsios;kf.dlyokfns
+                </p>
+                <button class="btn btn-light"><a href="#departments" class="nav-link"> see All Services</a></button>
+            </div>
+        </div>
+    </div>
+    <div class="carousel-item">
+        <img src="images/slider_2_1.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption text-white">
+            <div class="background-1">
+                <h2>Surgery</h2>
+                <p>Surgery is a medical specialty that uses operative manual and instrumental techniques on aperson
+                   to investigate or treate a pathological condition such as a disease or injury, to help improve
+                bodly function or appearance or to repair unwanted repured areas.
+                </p>
+                <button class="btn btn-light"><a href="#departments" class="nav-link">See All Services</a></button>
+            </div>
+        </div>
+    </div>
+    <div class="carousel-item">
+        <img src="images/slider_3.1.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption text-white">
+            <div class="background-1">
+                <h2>Neonatal intensive care unit</h2>
+                <p> A neonatal intensive care unit, also known as intensive care nusrsery, is an intensive care
+                    unit speciallizing in the care of ill or premature newborn infants. neonatal refers to the first
+                    28 days of life. Neonatal care, as known  as specialized nurseries
+                </p>
+                <button class="btn btn-light"><a href="#departments" class="nav-link">See All Services</a></button>
+            </div>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carousel-slider" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carousel-slider" role="button" data-slide="next">
+        
 {% endblock content %}
 {% include 'footer.html' %}
