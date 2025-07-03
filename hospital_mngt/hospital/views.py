@@ -38,3 +38,9 @@ def logout_admin(request):
         return redirect('login')
     logout(request)
     return redirect('login')
+def Home(request):
+    services = [
+        "Emergency", "Pharmacy", "USG", "Endoscopy", "ECHOServices",
+        "Colonoscopy", "Digital X-Ray", "Lab", "Coloscopy"
+    ]
+    return render(request, 'home.html', {'services': services})
