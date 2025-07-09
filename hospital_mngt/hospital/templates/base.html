@@ -1,24 +1,80 @@
-{% load static%}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"  content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Hospital Management System{% endblock %}</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" />
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}" />
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/mystyle.css' %}">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
-    <title>Hospital Management System</title>
 </head>
 
 <body>
 
-{% block content %}
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{% url 'home' %}">Hospital Management System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-{% endblock content %}
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                </li>
+                <li class="nav-item {% if request.resolver_match.url_name == 'about' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'about' %}">About</a>
+                </li>
+
+                {% if not request.user.is_staff %}
+                <li class="nav-item {% if request.resolver_match.url_name == 'login' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                {% endif %}
+
+                {% if request.user.is_staff %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="doctorDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Doctor</a>
+                    <div class="dropdown-menu" aria-labelledby="doctorDropdown">
+                        <a class="dropdown-item" href="{% url 'doctor_list' %}">View Doctors</a>
+                        <a class="dropdown-item" href="{% url 'doctor_create' %}">Add Doctor</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="patientDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Patient</a>
+                    <div class="dropdown-menu" aria-labelledby="patientDropdown">
+                        <a class="dropdown-item" href="{% url 'patient_list' %}">View Patients</a>
+                        <a class="dropdown-item" href="{% url 'patient_create' %}">Add Patient</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <!-- End Navbar -->
+
+    <div class="container mt-4">
+        {% block content %}
+        {% endblock content %}
+    </div>
 
 </body>
+
 </html>

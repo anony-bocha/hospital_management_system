@@ -2,6 +2,21 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from .models import Doctor
+from .forms import DoctorForm  
+def doctor_list(request):
+    doctors = Doctor.objects.all()
+    return render(request, 'doctor_list.html', {'doctors': doctors})
+
+def doctor_create(request):
+    if request.method == 'POST':
+        form = DoctorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('doctor_list')
+    else:
+        form = DoctorForm()
+    return render(request, 'doctor_create.html', {'form': form})
 
 def about_view(request):
     return render(request, 'about.html')

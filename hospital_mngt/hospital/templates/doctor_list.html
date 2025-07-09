@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Doctors</h1>
+<a href="{% url 'doctor_create' %}">Add Doctor</a>
+<ul>
+  {% for doctor in doctors %}
+    <li>{{ doctor.name }} - {{ doctor.specialization }} - {{ doctor.mobile }}</li>
+  {% empty %}
+    <li>No doctors found.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
