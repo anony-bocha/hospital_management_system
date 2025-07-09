@@ -6,10 +6,17 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Doctor
 from .forms import DoctorForm  
+from django.shortcuts import render, redirect, get_object_or_404
+#from django.contrib.auth.decorators import login_required
+#from .forms import DoctorForm
+
+
+@login_required
 def doctor_list(request):
     doctors = Doctor.objects.all()
-    return render(request, 'doctor_list.html', {'doctors': doctors})
+    return render(request, 'hospital/doctor_list.html', {'doctors': doctors})
 
+@login_required
 def doctor_create(request):
     if request.method == 'POST':
         form = DoctorForm(request.POST)
@@ -18,7 +25,29 @@ def doctor_create(request):
             return redirect('doctor_list')
     else:
         form = DoctorForm()
-    return render(request, 'doctor_create.html', {'form': form})
+    return render(request, 'hospital/doctor_form.html', {'form': form})
+
+@login_required
+def doctor_update(request, pk):
+    doctor = get_object_or_404(Doctor, pk=pk)
+    if request.method == 'POST':
+        form = DoctorForm(request.POST, instance=doctor)
+        if form.is_valid():
+            form.save()
+            return redirect('doctor_list')
+    else:
+        form = DoctorForm(instance=doctor)
+    return render(request, 'hospital/doctor_form.html', {'form': form})
+
+@login_required
+def doctor_delete(request, pk):
+    doctor = get_object_or_404(Doctor, pk=pk)
+    if request.method == 'POST':
+        doctor.delete()
+        return redirect('doctor_list')
+    return render(request, 'hospital/doctor_confirm_delete.html', {'doctor': doctor})
+
+
 
 def about_view(request):
     return render(request, 'about.html')
