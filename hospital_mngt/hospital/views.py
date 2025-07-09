@@ -1,46 +1,48 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
-def About(request):
+def about_view(request):
     return render(request, 'about.html')
 
-def Home(request):
-    return render(request, 'home.html')
+def home_view(request):
+    services = [
+        "Emergency", "Pharmacy", "USG", "Endoscopy", "ECHO Services",
+        "Colonoscopy", "Digital X-Ray", "Lab", "Coloscopy"
+    ]
+    return render(request, 'home.html', {'services': services})
 
-def Contact(request):
+def contact_view(request):
     return render(request, 'contact.html')
 
-def Index(request):
+@login_required(login_url='login')
+def index_view(request):
     if not request.user.is_staff:
+        messages.error(request, "You do not have access to the admin dashboard.")
         return redirect('login')
     return render(request, 'index.html')
 
 def login_view(request):
-    error = ""
+    if request.user.is_authenticated:
+        return redirect('index')
+        
     if request.method == "POST":
-        u = request.POST['uname']
-        p = request.POST['pwd']
-        user = authenticate(username=u, password=p)
-        try:
-            if user is not None and user.is_staff:
-                login(request, user)  # Correct usage
-                error = "no"
-            else:
-                error = "yes"
-        except:
-            error = "yes"
-    d = {'error': error}
-    return render(request, 'login.html', d)
+        username = request.POST.get('uname')
+        password = request.POST.get('pwd')
+        user = authenticate(request, username=username, password=password)
 
-def logout_admin(request):
-    if not request.user.is_staff:
-        return redirect('login')
+        if user is not None and user.is_staff:
+            login(request, user)
+            messages.success(request, "Logged in successfully.")
+            return redirect('index')
+        else:
+            messages.error(request, "Invalid credentials or insufficient permissions.")
+
+    return render(request, 'login.html')
+
+@login_required(login_url='login')
+def logout_view(request):
     logout(request)
+    messages.success(request, "Logged out successfully.")
     return redirect('login')
-def Home(request):
-    services = [
-        "Emergency", "Pharmacy", "USG", "Endoscopy", "ECHOServices",
-        "Colonoscopy", "Digital X-Ray", "Lab", "Coloscopy"
-    ]
-    return render(request, 'home.html', {'services': services})

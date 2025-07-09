@@ -1,10 +1,11 @@
 from django.urls import path
-from .views import About, Home, Contact, login_view, logout_admin  # ✅ Correct imports
+from . import views
 
 urlpatterns = [
-    path('about/', About, name="about"),
-    path('', Home, name="home"),
-    path('contact/', Contact, name='contact'),
-    path('admin_login/', login_view, name='login'),  # ✅ Corrected view name
-    path('logout/', logout_admin, name='logout_admin'),  # ✅ Fixed case
+    path('', views.home_view, name="home"),
+    path('about/', views.about_view, name="about"),
+    path('contact/', views.contact_view, name='contact'),
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
+    path('index/', views.index_view, name='index'),  # Admin dashboard view
 ]
