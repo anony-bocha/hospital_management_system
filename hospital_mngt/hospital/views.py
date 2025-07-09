@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from .models import Patient
+from .forms import PatientForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -61,3 +63,16 @@ def logout_view(request):
     logout(request)
     messages.success(request, "Logged out successfully.")
     return redirect('login')
+def patient_list(request):
+    patients = Patient.objects.all()
+    return render(request, 'patient_list.html', {'patients': patients})
+
+def patient_create(request):
+    if request.method == 'POST':
+        form = PatientForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('patient_list')
+    else:
+        form = PatientForm()
+    return render(request, 'patient_create.html', {'form': form})

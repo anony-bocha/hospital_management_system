@@ -1,3 +1,8 @@
 #h1{
     color:rgb(64, 0, 255);
 }
+.mydivstyle:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
